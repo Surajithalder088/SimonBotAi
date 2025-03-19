@@ -1,13 +1,16 @@
 import React from 'react'
 
-type Props = {}
+type Props = {
+  content:string 
+  time:string 
+}
 
-const AiChat = (props: Props) => {
+const AiChat = ({content,time}: Props) => {
   return (
     <div className='m-1 p-2 w-fit h-fit rounded-t-2xl rounded-r-2xl bg-white'>
-    <h4>user</h4>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius quos dicta a.
-       Eum dolore voluptatum cupiditate necessitatibus fugiat sit quos nostrum quasi ad!</p>
+    <h4>AI</h4>
+    <p>{content}</p>
+    <p>{time}</p>
   </div>
   )
 }
