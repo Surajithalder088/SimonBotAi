@@ -2,9 +2,11 @@
 
 import  {createSlice,PayloadAction} from "@reduxjs/toolkit"
 
+
+
 interface Message {
     author:"user"|"ai",
-    content:string
+    content:string|JSON
     time:string
 }
 interface MessageState {

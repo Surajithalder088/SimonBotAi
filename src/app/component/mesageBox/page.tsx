@@ -7,37 +7,48 @@ import { generateCreativePrompt } from '@/api/aiHandle'
 import { useDispatch,useSelector } from 'react-redux'
 import { addNewMessage, clearMessages } from '@/lib/features/messagesSlice'
 import { RootState } from '@/lib/store/store'
+import SpeechRecognition,{useSpeechRecognition} from "react-speech-recognition"
 
 type Props = {}
 
 const MessageBox = (props: Props) => {
-    const[mode,setMode]=useState<"voice"|"text">('text')
+    const[mode,setMode]=useState<"voice"|"text">('voice')
     const[isSpeaking,setIsSpeaking]=useState(false)
-    const[searchMessage,setSearchMessage]=useState("")
+    const[searchMessage,setSearchMessage]=useState<string |any>("")
     const dispatch=useDispatch()
     const messages=useSelector((state:RootState)=>state.messages)
 
-    const startSound=()=>{
+    const {transcript,listening,resetTranscript,browserSupportsSpeechRecognition}=useSpeechRecognition()
+
+    const startVoice=async()=>{
         setIsSpeaking(true)
-        dispatch(clearMessages())
         const audio=new Audio('/noti-ring.mp3')
-        audio.play()
+        await audio.play()
+        if(!browserSupportsSpeechRecognition)
+            {
+                alert("your browser does not suport sppech recognition")
+                return
+            }
+            resetTranscript()
+            SpeechRecognition.startListening({continuous:true})
+        
+        
     }
 const inputhandle=(e:React.ChangeEvent<HTMLTextAreaElement>)=>{
     setSearchMessage(e.target.value)
 }
 
 
-const sendHalder=async()=>{
+const sendHalder=async(search:string)=>{
 
 
-    dispatch(addNewMessage({author:"user",content:searchMessage,time:Date.now().toString()}))
+    dispatch(addNewMessage({author:"user",content:search,time:Date.now().toString()}))
 
 try {
-    const response= await generateCreativePrompt(searchMessage)
+    const response= await generateCreativePrompt(search)
        setSearchMessage("")
-       console.log(response.jsonData.response);
-       const resText=response.jsonData.response
+       console.log(response.jsonData);
+       const resText=response.jsonData
        dispatch(addNewMessage({author:"ai",content:resText,time:Date.now().toString()}))
 } catch (error) {
     setSearchMessage("")
@@ -45,6 +56,26 @@ try {
     
 }
        
+  }
+
+  const stopVoice=()=>{
+    SpeechRecognition.stopListening();
+    resetTranscript()
+    setIsSpeaking(false)
+  }
+
+  const savedToText=async()=>{
+   
+    console.log(transcript);
+ if(transcript===""){
+    console.log("voice is not read",transcript);
+    resetTranscript()
+    setIsSpeaking(false)
+    return
+ }
+   await sendHalder(transcript)
+   resetTranscript()
+   setIsSpeaking(false)
   }
     
   return (
@@ -55,7 +86,7 @@ try {
         mode==='voice'?(
             <div className='flex items-center justify-around'>
                 {
-                    isSpeaking===true? <button className='p-3 mt-2' onClick={()=>setIsSpeaking(false)}><img className='w-8 h-8' src='/delete.png'/></button>:
+                    isSpeaking===true? <button className='p-3 mt-2' onClick={stopVoice}><img className='w-8 h-8' src='/delete.png'/></button>:
                     <button className='p-3 mt-2' onClick={()=>setMode('text')}><img className='w-8 h-8' src='/text-editor.png'/></button>
                 }
                
@@ -67,8 +98,8 @@ try {
                 </div>:<div className='w-8 h-8 bg-blue-800 rounded-full'><img src='/speaker.png'/></div>}
 
                 {
-                    isSpeaking===false?<button className='p-3 mt-2' onClick={()=> startSound()}><img className='w-8 h-8' src='/voice-recorder.png'/></button>
-                    :<button className='p-3 mt-2' onClick={()=>setIsSpeaking(false)}><img className='w-8 h-8' src='/send (1).png'/></button>
+                    isSpeaking===false?<button className='p-3 mt-2' onClick={()=> startVoice()}><img className='w-8 h-8' src='/voice-recorder.png'/></button>
+                    :<button className='p-3 mt-2' onClick={savedToText}><img className='w-8 h-8' src='/send (1).png'/></button>
                 }
                 
             </div>
@@ -85,7 +116,7 @@ try {
              
                 </button>
                 <button
-                onClick={sendHalder}
+                onClick={()=>sendHalder(searchMessage)}
                 className='m-2 p-2 bg-blue-400 w-10 h-8 flex items-center justify-center rounded-md'><img className='w-6 h-6' src='/send.png'/></button>
             </div>
 

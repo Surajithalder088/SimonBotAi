@@ -34,11 +34,11 @@ const Chatlist = (props: Props) => {
         )
     }
   return (
-    <div className='min-h-[100vh-160px] max-h-fit flex-1 flex-wrap  overflow-auto mt-[80px] mb-[80px]'>
-      <div>
+    <div className='min-h-[100vh-160px] max-h-fit flex-1 overflow-x-auto flex-wrap w-[96vw]   overflow-auto mt-[80px] mb-[80px]'>
+      <div className='max-w-[96%]'>
         {
           messageList.map((item:Message)=>(
-          <div key={item.time}>
+          <div className='max-w-[96%]' key={item.time}>
            { item.author==="user" ?<UserChat content={item.content} time={item.time}/>:
            <AiChat content={item.content} time={item.time}/>}
             </div>
