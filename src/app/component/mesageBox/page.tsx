@@ -5,7 +5,7 @@ import { Canvas } from '@react-three/fiber'
 import Shape from './shape'
 import { generateCreativePrompt } from '@/api/aiHandle'
 import { useDispatch,useSelector } from 'react-redux'
-import { addNewMessage, clearMessages, initChat } from '@/lib/features/messagesSlice'
+import { addNewMessage, clearMessages, generating, initChat, notGenerating } from '@/lib/features/messagesSlice'
 import { RootState } from '@/lib/store/store'
 import SpeechRecognition,{useSpeechRecognition} from "react-speech-recognition"
 import toast, { Toaster } from 'react-hot-toast'
@@ -56,13 +56,14 @@ if(search===""){
 }
 
     dispatch(addNewMessage({author:"user",content:search,time:Date.now().toString()}))
+    dispatch(generating())
 
 
-    if(chatid==="" ||userid===""){
+    if(chatid===""||chatid===undefined ||userid===""){
         console.log('chat id:',chatid);
         
        const res= await newChat({userid,title:search})
-       if(res.status!==201){
+       if(!res || res.status!==201){
         toast.error("Authentication error")
         dispatch(clearMessages())
         console.log("chat res:",res);
@@ -71,9 +72,12 @@ if(search===""){
        
        console.log('chatid',chatid);
        
-      await dispatch(initChat(res.chat?.id))
+       if(res.status===201){
+        await dispatch(initChat(res.chat?.id))
         console.log("chat res:",res);
         chatid=res.chat?.id
+       }
+      
        
       
     }
@@ -100,7 +104,7 @@ try {
         toast.error("ai is nuable to respond")
         return
     }
-       
+       dispatch(notGenerating())
        console.log(response);
        const resText=response.jsonData
        dispatch(addNewMessage({author:"ai",content:resText,time:Date.now().toString()}))

@@ -99,3 +99,26 @@ export const allMessages=async(chatid:string)=>{
     }
 
 }
+
+export const deleteChat=async(chatid:string)=>{
+    if(!chatid){
+        return{status:400,message:"id not provided"}
+    }
+    try {
+        const deletedMessages=await prisma.message.deleteMany({
+            where:{
+                chatid
+            }
+        })
+        const deletedChat=await prisma.chat.delete({
+            where:{id:chatid}
+        })
+        if(!deletedChat ||!deletedMessages){
+            return{status:400,message:"failed to delete chat and messages"}
+        }
+        return{status:200,message:"chat and all messages are deleted"}
+    } catch (error) {
+        console.log(error);
+        return{status:500,message:"internal server error",error}
+    }
+}

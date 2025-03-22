@@ -15,11 +15,13 @@ interface Chatid{
 interface MessageState {
     messages:Message[]
     chatid:string
+    isGenerating:Boolean
 }
 
 const initialState:MessageState={
     messages:[],
-    chatid:""
+    chatid:"",
+    isGenerating:false
 }
 
 export const messagesSlice:any=createSlice({
@@ -41,11 +43,17 @@ export const messagesSlice:any=createSlice({
             },
             removeChat:(state)=>{
                 state.chatid=""
+            },
+            generating:(state)=>{
+                state.isGenerating=true
+            },
+            notGenerating:(state)=>{
+                state.isGenerating=false
             }
 
     }
 })
 
-export const {addNewMessage,clearMessages,initChat,removeChat}=messagesSlice.actions;
+export const {addNewMessage,clearMessages,initChat,removeChat,generating,notGenerating}=messagesSlice.actions;
 
 export default messagesSlice.reducer;

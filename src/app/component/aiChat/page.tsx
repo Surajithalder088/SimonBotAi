@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from 'react'
 
 type Props = {
-  content:string |JSON
+  content:JSON
   time:string 
 }
 

@@ -4,13 +4,13 @@ import Chatlist from '@/app/component/chatlist/page'
 import MessageBox from '@/app/component/mesageBox/page'
 import Navbar from '@/app/component/navbar/page'
 import { useParams } from 'next/navigation'
-import React, { SetStateAction, useEffect, useState } from 'react'
+import React, {  useEffect} from 'react'
 import { Provider, useDispatch } from "react-redux";
 import { store } from "@/lib/store/store";
 import { allMessages } from '@/api/messagesApi'
-import { Message } from '@prisma/client'
+
 import toast, { Toaster } from 'react-hot-toast'
-import { addNewMessage, initChat } from '@/lib/features/messagesSlice'
+import { addNewMessage, clearMessages, initChat } from '@/lib/features/messagesSlice'
 
 type Props = {}
 
@@ -19,7 +19,7 @@ const Chat = (props: Props) => {
 const chatid:string|any=(id)
 const dispatch=useDispatch()
 
-const [messages,setMessages]=useState< Message[]|undefined>(undefined)
+
 
     const fetchingMesages=async(chatid:string)=>{
       try {
@@ -31,7 +31,7 @@ const [messages,setMessages]=useState< Message[]|undefined>(undefined)
         }
        const list = res.messages
         console.log("messages are:",list);
-        list?.map(item=>{
+        list?.forEach(item=>{
           
           console.log(item,item.id);
           dispatch(addNewMessage({author:item.sender,content:item.body,time:Date.now().toString()}))
@@ -53,6 +53,7 @@ const [messages,setMessages]=useState< Message[]|undefined>(undefined)
 
     useEffect(() => {
    console.log(chatid);
+   dispatch(clearMessages())
    dispatch(initChat({chatid:id}))
     
       fetchingMesages(chatid)

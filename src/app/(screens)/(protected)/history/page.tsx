@@ -1,6 +1,6 @@
 'use client'
 
-import { AllChats } from '@/api/messagesApi'
+import { AllChats, deleteChat } from '@/api/messagesApi'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
@@ -36,11 +36,24 @@ const History = (props: Props) => {
     }
    
   }
+  const deleteHandle=async(id:any)=>{
+    console.log(id.id);
+    let chatid:string=id.id
+   const res=await deleteChat(chatid)
+   if(!res ||res.status!==200){
+    toast.error("failed to delete")
+    return
+   }
+   toast.success("deleted")
+   navigate.push('/')
+    return
+  }
 
   useEffect(() => {
    console.log("id:",id);
    if(id===""){
     navigate.push('/login')
+    return
    }
   let userId=id
   fetchingChats(userId)
@@ -64,9 +77,15 @@ const History = (props: Props) => {
       <div className='p-3 flex flex-col items-center gap-3 mt-[80px] h-screen '>
         <p className='font-semibold'>Past search tags and conversations:</p>
     {
-      filterArray.map(i=>< div key={i.id} className='bg-gray-200 w-full p-4'
-      onClick={()=>navigate.push(`/chat/${i.id}`)}
-      >{i.title}</div>)
+     chats.length>0&& filterArray.map(i=>< div key={i.id} className='bg-gray-400 w-full flex justify-around p-2'
+     
+      >
+        <p className='bg-gray-300 px-7 rounded-md flex flex-wrap w-[70%] overflow-auto max-h-12'
+         onClick={()=>navigate.push(`/chat/${i.id}`)}
+        >{i.title}</p> <button
+        onClick={()=>deleteHandle({id:i.id})}
+        ><img className='w-5 h-5' src='/delete-bin-6-line.png'/>
+          </button> </div>)
     }
         
       </div>

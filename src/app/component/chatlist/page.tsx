@@ -1,29 +1,43 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import UserChat from '../userChat/page'
 import AiChat from '../aiChat/page'
 import { useSelector } from 'react-redux'
-import { RootState } from '@/lib/store/store'
+
 import { Toaster } from 'react-hot-toast'
 
 type Props = {}
 
 interface Message {
   author:"user"|"ai",
-  content:string
+  content:any
   time:string
 }
 
 const Chatlist = (props: Props) => {
   const[messageList,setMesageList]=useState([])
+  const divRef=useRef<HTMLDivElement |null>(null)
+  const bottomRef=useRef<HTMLDivElement |null>(null)
     
     const messages:Message[] |any=useSelector((state:any)=>state.messages.messages)
+    const isGenerating=useSelector((state:any)=>state.messages.isGenerating)
+
+    const scrollToBottom=()=>{
+      if(bottomRef.current){
+      bottomRef.current.scrollIntoView({behavior:'smooth'})
+      }
+    }
     useEffect(()=>{
       setMesageList(messages)
      console.log(messages);
      
+     
     },[messages])
+
+if(isGenerating){
+      scrollToBottom()
+     }
 
 
     if(messageList.length===0){
@@ -43,21 +57,35 @@ const Chatlist = (props: Props) => {
         )
     }
   return (
-    <div className='min-h-[100vh-160px] max-h-fit flex-1 overflow-x-auto flex-wrap w-[96vw]   overflow-auto mt-[80px] mb-[80px]'>
+    <div className='min-h-[100vh-160px] max-h-fit flex-1 overflow-x-auto flex-wrap w-[96vw] pb-[50px]  overflow-auto mt-[80px] mb-[120px]'
+     
+    >
       <Toaster position='top-left'/>
-      <div className='max-w-[96%]'>
+     
+      <button className=' fixed bg-gray-400 w-12 flex items-center justify-center  h-12 rounded-full z-50 bottom-20 ml-[50%]'
+      onClick={scrollToBottom}
+      >
+        <img className='w-8 h-8' src='/arrow-down-line.png'/>
+      </button>
+      <div className='max-w-[96%] overflow-scroll'
+     ref={divRef}
+      >
         {
           messageList.map((item:Message)=>(
           <div className='max-w-[96%]' key={item.time}>
            { item.author==="user" ?<UserChat content={item.content} time={item.time}/>:
            <AiChat content={item.content} time={item.time}/>}
+          
             </div>
+           
             )
           )
+         
         }
       
-       
-       
+      { isGenerating&&<div className='bg-gray-200 w-50 h-30 rounded-b-3xl rounded-r-3xl ml-3'></div>}
+     
+       <div ref={bottomRef}/>
       </div>
     </div>
   )

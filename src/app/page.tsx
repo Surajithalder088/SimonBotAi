@@ -8,7 +8,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "@/lib/store/store";
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
-import { clearMessages } from "@/lib/features/messagesSlice";
+import { clearMessages, removeChat } from "@/lib/features/messagesSlice";
 
 
 export default function Home() {
@@ -16,8 +16,9 @@ export default function Home() {
   const dispatch=useDispatch()
   useEffect(() => {
    console.log("id:",id);
-   dispatch(clearMessages())
    
+   dispatch(clearMessages())
+   dispatch(removeChat())
   }, [])
   
   return (

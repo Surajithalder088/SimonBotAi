@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
-import { useDispatch,useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 type Props = {}
 
