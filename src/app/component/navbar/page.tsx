@@ -4,7 +4,7 @@ import { falseTemp, trueTemp } from '@/lib/features/messagesSlice'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 type Props = {}
 
@@ -12,7 +12,8 @@ type Props = {}
 
 const Navbar = (props: Props) => {
     const navigate=useRouter()
-    const[temp,setTemp]=useState(true)
+    
+    const[temp,setTemp]=useState(!useSelector((state:any)=>state.messages.temp))
     const dispatch=useDispatch()
 
     const historyRender=()=>{

@@ -23,7 +23,7 @@ const initialState:MessageState={
     messages:[],
     chatid:"",
     isGenerating:false,
-    temp:true
+    temp:false
 }
 
 export const messagesSlice:any=createSlice({

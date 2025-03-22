@@ -5,7 +5,7 @@ import { Canvas } from '@react-three/fiber'
 import Shape from './shape'
 import { generateCreativePrompt } from '@/api/aiHandle'
 import { useDispatch,useSelector } from 'react-redux'
-import { addNewMessage, clearMessages, generating, initChat, notGenerating } from '@/lib/features/messagesSlice'
+import { addNewMessage, clearMessages, generating, initChat, notGenerating, trueTemp } from '@/lib/features/messagesSlice'
 import { RootState } from '@/lib/store/store'
 import SpeechRecognition,{useSpeechRecognition} from "react-speech-recognition"
 import toast, { Toaster } from 'react-hot-toast'
@@ -55,14 +55,21 @@ if(search===""){
     toast.error("Question is not received")
     return
 }
+ if(userid==="" && temp===false){
+        toast.success("These conversations will not be saved")
+        dispatch(trueTemp())
+     
+      return
+    }
 
     dispatch(addNewMessage({author:"user",content:search,time:Date.now().toString()}))
     dispatch(generating())
 
  if(temp===false){
 
+   
  
-    if(chatid===""||chatid===undefined ||userid===""){
+    if(chatid===""||chatid===undefined ){
         console.log('chat id:',chatid);
         
        const res= await newChat({userid,title:search})
