@@ -1,5 +1,6 @@
 'use client'
 
+import { registerUser } from '@/api/userApi'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
@@ -10,10 +11,18 @@ const Register = (props: Props) => {
         const [password,setPasssword]=useState("")
         const[name,setName]=useState("")
     
-        const submitHandler=(e:React.FormEvent)=>{
+        const submitHandler=async(e:React.FormEvent)=>{
            e.preventDefault()
-            alert('login')
-            console.log(email,password);
+          
+          try {
+            const res=await registerUser({name,email,password})
+           console.log(res);
+          } catch (error) {
+            console.log(error);
+            
+          }
+           
+           
             
         }
         const nameChange=(e:React.ChangeEvent<HTMLInputElement>)=>{

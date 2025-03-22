@@ -1,7 +1,9 @@
 'use client'
 
+import { AllChats } from '@/api/messagesApi'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 type Props = {}
 type obj={id:number,string:string}
@@ -14,8 +16,25 @@ const arr:obj[]=[
   {id:6,string:"react native styling 6"}]
 
 const History = (props: Props) => {
+  
   const navigate=useRouter()
   const[search,setSearch]=useState("")
+  const id:string=useSelector((state:any)=>state.users.id)
+
+  const fetchingChats=async(userId:string)=>{
+     const res=await AllChats(userId)
+  console.log(res);
+  }
+
+  useEffect(() => {
+   console.log("id:",id);
+   if(id===""){
+    navigate.push('/login')
+   }
+  let userId=id
+  fetchingChats(userId)
+   
+  }, [])
   const searchhandle=(e:React.ChangeEvent<HTMLInputElement>)=>{
     setSearch(e.target.value)
   }

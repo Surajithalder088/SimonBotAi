@@ -1,13 +1,15 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import Shape from './shape'
 import { generateCreativePrompt } from '@/api/aiHandle'
 import { useDispatch,useSelector } from 'react-redux'
-import { addNewMessage, clearMessages } from '@/lib/features/messagesSlice'
+import { addNewMessage, clearMessages, initChat } from '@/lib/features/messagesSlice'
 import { RootState } from '@/lib/store/store'
 import SpeechRecognition,{useSpeechRecognition} from "react-speech-recognition"
+import toast, { Toaster } from 'react-hot-toast'
+import { newChat, newMessage } from '@/api/messagesApi'
 
 type Props = {}
 
@@ -16,7 +18,10 @@ const MessageBox = (props: Props) => {
     const[isSpeaking,setIsSpeaking]=useState(false)
     const[searchMessage,setSearchMessage]=useState<string |any>("")
     const dispatch=useDispatch()
-    const messages=useSelector((state:RootState)=>state.messages)
+    const chatid:string=useSelector((state:any)=>state.messages?.chatid)
+    const userid:string=useSelector((state:any)=>state.users.id)
+   
+    
 
     const {transcript,listening,resetTranscript,browserSupportsSpeechRecognition}=useSpeechRecognition()
 
@@ -34,6 +39,7 @@ const MessageBox = (props: Props) => {
         
         
     }
+
 const inputhandle=(e:React.ChangeEvent<HTMLTextAreaElement>)=>{
     setSearchMessage(e.target.value)
 }
@@ -41,15 +47,65 @@ const inputhandle=(e:React.ChangeEvent<HTMLTextAreaElement>)=>{
 
 const sendHalder=async(search:string)=>{
 
+console.log("user:",userid);
 
     dispatch(addNewMessage({author:"user",content:search,time:Date.now().toString()}))
+    if(chatid==="" ||userid===""){
+        console.log('chat id:',chatid);
+        
+       const res= await newChat({userid,title:search})
+       if(res.status!==201){
+        toast.error("Authentication error")
+        dispatch(clearMessages())
+        console.log("chat res:",res);
+        return
+       }
+       console.log("chat res:",res);
+       
+        dispatch(initChat(res.chat?.id))
+        
+
+    }
+    
+    let chid:any=chatid
+    const res=await newMessage({chatid:chid,sender:"user",body:search})
+    if(res.status!==200){
+        console.log("chat id",chatid);
+        
+        console.log(res);
+        
+        toast.error("Failed to save ,try again")
+        dispatch(clearMessages())
+        return
+    }
+    console.log(res);
+    
+     setSearchMessage("")
 
 try {
     const response= await generateCreativePrompt(search)
-       setSearchMessage("")
-       console.log(response.jsonData);
+   
+    if(!response){
+        toast.error("ai is nuable to respond")
+        return
+    }
+       
+       console.log(response);
        const resText=response.jsonData
        dispatch(addNewMessage({author:"ai",content:resText,time:Date.now().toString()}))
+       const res=await newMessage({chatid:chid,sender:"ai",body:resText})
+    if(res.status!==200){
+        console.log(chatid);
+        
+        console.log(res);
+        
+        toast.error("Failed to save message in database")
+        
+        return
+    }
+    console.log(res);
+
+
 } catch (error) {
     setSearchMessage("")
     console.log(error);
@@ -65,7 +121,10 @@ try {
   }
 
   const savedToText=async()=>{
-   
+   if(!transcript){
+    toast.error("voice not get")
+    return
+   }
     console.log(transcript);
  if(transcript===""){
     console.log("voice is not read",transcript);
@@ -73,14 +132,17 @@ try {
     setIsSpeaking(false)
     return
  }
+ setIsSpeaking(false)
    await sendHalder(transcript)
    resetTranscript()
-   setIsSpeaking(false)
+   
   }
     
   return (
     
+   
     <div className='bg-cyan-50 bottom-0 left-0 fixed w-full h-[80px] border-t rounded-t-lg'>
+        <Toaster position='top-left'/>
 
        {
         mode==='voice'?(
@@ -126,6 +188,7 @@ try {
 
         
     </div>
+    
   )
 }
 

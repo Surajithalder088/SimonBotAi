@@ -5,6 +5,7 @@ import UserChat from '../userChat/page'
 import AiChat from '../aiChat/page'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/lib/store/store'
+import { Toaster } from 'react-hot-toast'
 
 type Props = {}
 
@@ -35,6 +36,7 @@ const Chatlist = (props: Props) => {
     }
   return (
     <div className='min-h-[100vh-160px] max-h-fit flex-1 overflow-x-auto flex-wrap w-[96vw]   overflow-auto mt-[80px] mb-[80px]'>
+      <Toaster position='top-left'/>
       <div className='max-w-[96%]'>
         {
           messageList.map((item:Message)=>(

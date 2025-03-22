@@ -9,12 +9,17 @@ interface Message {
     content:string|JSON
     time:string
 }
+interface Chatid{
+    chatid:string
+}
 interface MessageState {
     messages:Message[]
+    chatid:string
 }
 
 const initialState:MessageState={
-    messages:[]
+    messages:[],
+    chatid:""
 }
 
 export const messagesSlice:any=createSlice({
@@ -30,9 +35,17 @@ export const messagesSlice:any=createSlice({
             clearMessages:(state)=>{
                 state.messages=[]
             },
+            initChat:(state,action:PayloadAction<string>)=>{
+               
+                state.chatid=action.payload;
+            },
+            removeChat:(state)=>{
+                state.chatid=""
+            }
+
     }
 })
 
-export const {addNewMessage,clearMessages}=messagesSlice.actions;
+export const {addNewMessage,clearMessages,initChat,removeChat}=messagesSlice.actions;
 
 export default messagesSlice.reducer;
