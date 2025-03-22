@@ -21,7 +21,7 @@ const History = (props: Props) => {
   
   const navigate=useRouter()
   const[search,setSearch]=useState("")
-  const [chats,setChats]=useState<any>([])
+  const [chats,setChats]=useState<Chat[] |any[]>([])
  
   const id:string=useSelector((state:any)=>state.users.id)
 

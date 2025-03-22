@@ -6,6 +6,7 @@ import AiChat from '../aiChat/page'
 import { useSelector } from 'react-redux'
 
 import { Toaster } from 'react-hot-toast'
+import { Loader2 } from 'lucide-react'
 
 type Props = {}
 
@@ -83,7 +84,9 @@ if(isGenerating){
          
         }
       
-      { isGenerating&&<div className='bg-gray-200 w-50 h-30 rounded-b-3xl rounded-r-3xl ml-3'></div>}
+      { isGenerating&&<div className='bg-gray-200 w-50 h-30 rounded-b-3xl rounded-r-3xl ml-3'>
+        <Loader2 className='animate-spin text-gray-800' size={30}/>
+        </div>}
      
        <div ref={bottomRef}/>
       </div>

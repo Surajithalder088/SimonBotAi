@@ -34,7 +34,9 @@ const Navbar = (props: Props) => {
             <button onClick={historyRender}><img className='w-7 h-7' src='/history.png'/></button>
         </div>
 
-        <div className=' m-2 p-2 rounded-4xl hover:bg-gray-400'><img className='w-14 h-14 rounded-lg' src='/icon.png'/></div>
+        <div 
+        className=' m-2 p-2 rounded-4xl flex items-center justify-center font-bold text-4xl w-14 h-14 hover:bg-gray-400'>
+          Simon</div>
         <div className='flex items-center justify-between w-[20%]'>
         <div className=' m-1  rounded-4xl hover:bg-gray-400' onClick={tempAccess}>
           

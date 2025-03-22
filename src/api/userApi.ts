@@ -27,7 +27,7 @@ export const registerUser=async({name,email,password}:{name:string,email:string,
     if(!newuser){
         return{status:400,message:"failed to create new user"}
     }
-    return {ststus:201,message:"new user created",user:newuser}
+    return {status:201,message:"new user created",user:newuser}
     } catch (error) {
         console.log(error);
         
