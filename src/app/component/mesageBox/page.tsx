@@ -170,7 +170,7 @@ try {
                 <Canvas>
           <Shape/>
         </Canvas>
-                </div>:<div className='w-8 h-8 bg-blue-800 rounded-full'><img src='/speaker.png'/></div>}
+                </div>:<div className='w-10 h-10  rounded-full'><img src='/speaker.png'/></div>}
 
                 {
                     isSpeaking===false?<button className='p-3 mt-2' onClick={()=> startVoice()}><img className='w-8 h-8' src='/voice-recorder.png'/></button>

@@ -10,7 +10,7 @@ type Props = {}
 
 const Navbar = (props: Props) => {
     const navigate=useRouter()
-    const[temp,setTemp]=useState(false)
+    const[temp,setTemp]=useState(true)
 
     const historyRender=()=>{
         navigate.push('/history')
@@ -18,10 +18,10 @@ const Navbar = (props: Props) => {
     const tempAccess=()=>{
       setTemp(!temp)
       if(temp===true){
-        toast.custom("messages will be not saved")
+        toast.success("No messages will be saved")
         return
       }
-      toast.custom("messages will be saved")
+      toast.success("messages will be saved")
     }
   return (
     <div className='w-[100%] bg-gray-300 h-[80px] border-b-1 fixed top-0 left-0 flex items-center justify-between  '>

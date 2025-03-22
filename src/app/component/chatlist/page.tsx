@@ -30,7 +30,15 @@ const Chatlist = (props: Props) => {
         return(
             <div className=' min-h-[100vh-160px] flex-1 flex-wrap items-center overflow-auto mt-[80px] mb-[80px]'>
                
-               <div className='font-bold font-sans text-4xl flex items-center justify-center'> How can I help you today?</div>
+               <div className='font-bold font-sans p-5 text-4xl flex flex-col items-center justify-center text-gray-600'> How can I help you today?
+                <span className='m-2'>
+                  <ol className='font-normal text-2xl text-gray-400'>
+                    <li>I can draw image</li>
+                    <li> I can receive voice message</li>
+                    <li>I store our previous conversations</li>
+                  </ol>
+                </span>
+               </div>
             </div>
         )
     }

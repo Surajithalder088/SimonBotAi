@@ -62,6 +62,7 @@ const History = (props: Props) => {
         <div className='' onClick={()=>navigate.push('/')}><img src='/home-2-fill.png'/></div>
       </div>
       <div className='p-3 flex flex-col items-center gap-3 mt-[80px] h-screen '>
+        <p className='font-semibold'>Past search tags and conversations:</p>
     {
       filterArray.map(i=>< div key={i.id} className='bg-gray-200 w-full p-4'
       onClick={()=>navigate.push(`/chat/${i.id}`)}

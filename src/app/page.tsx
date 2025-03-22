@@ -4,16 +4,19 @@ import Image from "next/image";
 import Navbar from "./component/navbar/page";
 import Chatlist from "./component/chatlist/page";
 import MessageBox from "./component/mesageBox/page";
-import { Provider, useSelector } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "@/lib/store/store";
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
+import { clearMessages } from "@/lib/features/messagesSlice";
 
 
 export default function Home() {
   const id:any=useSelector((state:any)=>state.users.id)
+  const dispatch=useDispatch()
   useEffect(() => {
    console.log("id:",id);
+   dispatch(clearMessages())
    
   }, [])
   
