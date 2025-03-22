@@ -3,7 +3,9 @@
 import { AllChats } from '@/api/messagesApi'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 import { useSelector } from 'react-redux'
+import { Chat } from '@prisma/client'
 
 type Props = {}
 type obj={id:number,string:string}
@@ -19,11 +21,20 @@ const History = (props: Props) => {
   
   const navigate=useRouter()
   const[search,setSearch]=useState("")
+  const [chats,setChats]=useState<any>([])
+ 
   const id:string=useSelector((state:any)=>state.users.id)
 
   const fetchingChats=async(userId:string)=>{
-     const res=await AllChats(userId)
+    try{
+        const res=await AllChats(userId)
   console.log(res);
+  setChats(res.chats)
+    }catch(err){
+      console.log();
+      toast.error("failed to load all chatlists")
+    }
+   
   }
 
   useEffect(() => {
@@ -38,20 +49,23 @@ const History = (props: Props) => {
   const searchhandle=(e:React.ChangeEvent<HTMLInputElement>)=>{
     setSearch(e.target.value)
   }
-  const filterArray=search===""?arr:arr.filter(item=>item.string.includes(search))
+  const filterArray=search===""?chats:chats.filter(item=>item.title?.includes(search))
   
   return (
     <div>
+    <Toaster position='top-right'/>
       <div className='flex items-center justify-around w-full top-0 fixed h-[80px] bg-white'>
         <div className='flex items-center bg-gray-200 p-2 rounded-xl'>
-          <div>---</div>
+          <img src='/search-line.png'/>
           <input className='outline-none p-4' value={search} onChange={searchhandle} placeholder='search...'/>
         </div>
-        <div className='' onClick={()=>navigate.push('/')}>home</div>
+        <div className='' onClick={()=>navigate.push('/')}><img src='/home-2-fill.png'/></div>
       </div>
       <div className='p-3 flex flex-col items-center gap-3 mt-[80px] h-screen '>
     {
-      filterArray.map(i=>< div key={i.id} className='bg-gray-200 w-full p-4'>{i.string}</div>)
+      filterArray.map(i=>< div key={i.id} className='bg-gray-200 w-full p-4'
+      onClick={()=>navigate.push(`/chat/${i.id}`)}
+      >{i.title}</div>)
     }
         
       </div>

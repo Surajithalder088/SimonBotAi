@@ -33,7 +33,7 @@ const [messages,setMessages]=useState< Message[]|undefined>(undefined)
         console.log("messages are:",list);
         list?.map(item=>{
           console.log(item);
-          dispatch(addNewMessage({author:item.sender,content:item.body,time:Date.now().toString()}))
+          dispatch(addNewMessage({author:item.sender,content:item.body,time:item.time.toString()}))
           
         })
        

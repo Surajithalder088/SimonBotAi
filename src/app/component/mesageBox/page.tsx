@@ -18,8 +18,10 @@ const MessageBox = (props: Props) => {
     const[isSpeaking,setIsSpeaking]=useState(false)
     const[searchMessage,setSearchMessage]=useState<string |any>("")
     const dispatch=useDispatch()
-    const chatid:string=useSelector((state:any)=>state.messages?.chatid)
+    //const [chatid,setChatid]=useState<string |any>(useSelector((state:any)=>state.messages?.chatid))
+  let chatid=useSelector((state:any)=>state.messages.chatid.chatid)
     const userid:string=useSelector((state:any)=>state.users.id)
+    
    
     
 
@@ -48,8 +50,14 @@ const inputhandle=(e:React.ChangeEvent<HTMLTextAreaElement>)=>{
 const sendHalder=async(search:string)=>{
 
 console.log("user:",userid);
+if(search===""){
+    toast.error("Question is not received")
+    return
+}
 
     dispatch(addNewMessage({author:"user",content:search,time:Date.now().toString()}))
+
+
     if(chatid==="" ||userid===""){
         console.log('chat id:',chatid);
         
@@ -60,11 +68,14 @@ console.log("user:",userid);
         console.log("chat res:",res);
         return
        }
-       console.log("chat res:",res);
        
-        dispatch(initChat(res.chat?.id))
-        
-
+       console.log('chatid',chatid);
+       
+      await dispatch(initChat(res.chat?.id))
+        console.log("chat res:",res);
+        chatid=res.chat?.id
+       
+      
     }
     
     let chid:any=chatid
@@ -85,7 +96,7 @@ console.log("user:",userid);
 try {
     const response= await generateCreativePrompt(search)
    
-    if(!response){
+    if(!response  || response?.status!==200){
         toast.error("ai is nuable to respond")
         return
     }
@@ -123,13 +134,15 @@ try {
   const savedToText=async()=>{
    if(!transcript){
     toast.error("voice not get")
+    stopVoice()
+   
+    
     return
    }
     console.log(transcript);
  if(transcript===""){
     console.log("voice is not read",transcript);
-    resetTranscript()
-    setIsSpeaking(false)
+    stopVoice()
     return
  }
  setIsSpeaking(false)
@@ -149,7 +162,7 @@ try {
             <div className='flex items-center justify-around'>
                 {
                     isSpeaking===true? <button className='p-3 mt-2' onClick={stopVoice}><img className='w-8 h-8' src='/delete.png'/></button>:
-                    <button className='p-3 mt-2' onClick={()=>setMode('text')}><img className='w-8 h-8' src='/text-editor.png'/></button>
+                    <button className='p-3 mt-2' onClick={()=>setMode('text')}><img className='w-6 h-6' src='/text-editor.png'/></button>
                 }
                
               {
