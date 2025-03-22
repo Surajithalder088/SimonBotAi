@@ -21,6 +21,7 @@ const MessageBox = (props: Props) => {
     //const [chatid,setChatid]=useState<string |any>(useSelector((state:any)=>state.messages?.chatid))
   let chatid=useSelector((state:any)=>state.messages.chatid.chatid)
     const userid:string=useSelector((state:any)=>state.users.id)
+    const temp=useSelector((state:any)=>state.messages.temp)
     
    
     
@@ -58,7 +59,9 @@ if(search===""){
     dispatch(addNewMessage({author:"user",content:search,time:Date.now().toString()}))
     dispatch(generating())
 
+ if(temp===false){
 
+ 
     if(chatid===""||chatid===undefined ||userid===""){
         console.log('chat id:',chatid);
         
@@ -94,10 +97,11 @@ if(search===""){
         return
     }
     console.log(res);
-    
+  }// as its not temp so its saved
      setSearchMessage("")
-
+ 
 try {
+
     const response= await generateCreativePrompt(search)
    
     if(!response  || response?.status!==200){
@@ -108,6 +112,12 @@ try {
        console.log(response);
        const resText=response.jsonData
        dispatch(addNewMessage({author:"ai",content:resText,time:Date.now().toString()}))
+
+       if(temp===false){
+
+     
+
+       let chid:any=chatid
        const res=await newMessage({chatid:chid,sender:"ai",body:resText})
     if(res.status!==200){
         console.log(chatid);
@@ -119,7 +129,7 @@ try {
         return
     }
     console.log(res);
-
+  }
 
 } catch (error) {
     setSearchMessage("")

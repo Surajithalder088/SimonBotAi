@@ -16,12 +16,14 @@ interface MessageState {
     messages:Message[]
     chatid:string
     isGenerating:Boolean
+    temp:Boolean
 }
 
 const initialState:MessageState={
     messages:[],
     chatid:"",
-    isGenerating:false
+    isGenerating:false,
+    temp:true
 }
 
 export const messagesSlice:any=createSlice({
@@ -49,11 +51,17 @@ export const messagesSlice:any=createSlice({
             },
             notGenerating:(state)=>{
                 state.isGenerating=false
+            },
+            trueTemp:(state)=>{
+                state.temp=true
+            },
+            falseTemp:(state)=>{
+                state.temp=false
             }
 
     }
 })
 
-export const {addNewMessage,clearMessages,initChat,removeChat,generating,notGenerating}=messagesSlice.actions;
+export const {addNewMessage,clearMessages,initChat,removeChat,generating,notGenerating,trueTemp,falseTemp}=messagesSlice.actions;
 
 export default messagesSlice.reducer;

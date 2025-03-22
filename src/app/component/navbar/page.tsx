@@ -1,8 +1,10 @@
 'use client'
 
+import { falseTemp, trueTemp } from '@/lib/features/messagesSlice'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
+import { useDispatch } from 'react-redux'
 
 type Props = {}
 
@@ -11,6 +13,7 @@ type Props = {}
 const Navbar = (props: Props) => {
     const navigate=useRouter()
     const[temp,setTemp]=useState(true)
+    const dispatch=useDispatch()
 
     const historyRender=()=>{
         navigate.push('/history')
@@ -19,9 +22,11 @@ const Navbar = (props: Props) => {
       setTemp(!temp)
       if(temp===true){
         toast.success("No messages will be saved")
+        dispatch(trueTemp())
         return
       }
       toast.success("messages will be saved")
+      dispatch(falseTemp())
     }
   return (
     <div className='w-[100%] bg-gray-300 h-[80px] border-b-1 fixed top-0 left-0 flex items-center justify-between  '>

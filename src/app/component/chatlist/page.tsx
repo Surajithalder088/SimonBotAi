@@ -62,7 +62,7 @@ if(isGenerating){
     >
       <Toaster position='top-left'/>
      
-      <button className=' fixed bg-gray-400 w-12 flex items-center justify-center  h-12 rounded-full z-50 bottom-20 ml-[50%]'
+      <button className=' fixed bg-gray-200 w-12 flex items-center justify-center  h-12 rounded-full z-50 bottom-20 ml-[45%]'
       onClick={scrollToBottom}
       >
         <img className='w-8 h-8' src='/arrow-down-line.png'/>
