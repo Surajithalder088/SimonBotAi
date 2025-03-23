@@ -3,8 +3,13 @@
 
 import React, { useEffect, useState } from 'react'
 
+ /* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
+   
 
 
+ // eslint-disable @typescript-eslint
 const AiChat = ({content,time}: { content:JSON,time:string }) => {
   const fullText:string=Object.entries(content).map(([key,value])=>` ${key} : ${value}`).toString()
  
@@ -12,9 +17,7 @@ const AiChat = ({content,time}: { content:JSON,time:string }) => {
    const [speaker,setSpeaker]=useState(false)
    const [speaking,setSpeaking]=useState(false)
    const synth=window.speechSynthesis;
-   /* eslint-disable
-@typescript-eslint/no-explicit-any
-*/
+ 
    
    //let utterrance:SpeechSynthesisUtterance|null=null
    useEffect(() => {
