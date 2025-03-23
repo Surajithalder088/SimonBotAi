@@ -9,8 +9,9 @@ type Props = {
 }
 
 const AiChat = ({content,time}: Props) => {
+  const fullText:string=Object.entries(content).map(([key,value])=>` ${key} : ${value}`).toString()
  
-  const [textBody,setTextBody]=useState<string |any>(Object.entries(content).map(([key,value])=>` ${key} : ${value}`))
+  const [textBody,setTextBody]=useState<string>(fullText)
    const [speaker,setSpeaker]=useState(false)
    const [speaking,setSpeaking]=useState(false)
    const synth=window.speechSynthesis;
@@ -22,26 +23,23 @@ const AiChat = ({content,time}: Props) => {
     }
    }, [textBody])
    
+console.log(speaking);
 
 
-const isFile=(key:any)=>/\w+\.(js|ts|py|html|css|json|md|jsx|tsx|txt)$/i.test(key)
+const isFile=(key:string)=>/\w+\.(js|ts|py|html|css|json|md|jsx|tsx|txt)$/i.test(key)
 
-const handleSpeechStart =(textKey:string)=>{
-  if(synth.speaking) return;
-
-  const textToSpeak=textKey
-  if (!textToSpeak) {
-    return;
-  }
+const handleSpeechStart =(textBody:string )=>{
+  /*if(synth.speaking) return;
 
   setSpeaker(true)
-  utterrance=new SpeechSynthesisUtterance(textKey);
+  utterrance=new SpeechSynthesisUtterance(textBody);
   synth.speak(utterrance)
   setSpeaking(true)
  
 
   utterrance.onend=()=>{setSpeaking(false)
      setSpeaker(false)}
+     */
 }
 
 const handleStop=()=>{

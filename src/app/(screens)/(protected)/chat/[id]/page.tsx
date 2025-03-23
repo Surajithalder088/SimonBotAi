@@ -12,9 +12,9 @@ import { allMessages } from '@/api/messagesApi'
 import toast, { Toaster } from 'react-hot-toast'
 import { addNewMessage, clearMessages, initChat } from '@/lib/features/messagesSlice'
 
-type Props = {}
 
-const Chat = (props: Props) => {
+
+const Chat = () => {
     const {id}=useParams()
 const chatid:string|any=(id)
 const dispatch=useDispatch()

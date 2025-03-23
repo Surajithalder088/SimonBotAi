@@ -1,19 +1,19 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import Shape from './shape'
 import { generateCreativePrompt } from '@/api/aiHandle'
 import { useDispatch,useSelector } from 'react-redux'
 import { addNewMessage, clearMessages, generating, initChat, notGenerating, trueTemp } from '@/lib/features/messagesSlice'
-import { RootState } from '@/lib/store/store'
+
 import SpeechRecognition,{useSpeechRecognition} from "react-speech-recognition"
 import toast, { Toaster } from 'react-hot-toast'
 import { newChat, newMessage } from '@/api/messagesApi'
 
-type Props = {}
 
-const MessageBox = (props: Props) => {
+
+const MessageBox = () => {
     const[mode,setMode]=useState<"voice"|"text">('voice')
     const[isSpeaking,setIsSpeaking]=useState(false)
     const[searchMessage,setSearchMessage]=useState<string |any>("")

@@ -7,7 +7,8 @@ import toast, { Toaster } from 'react-hot-toast'
 import { useSelector } from 'react-redux'
 import { Chat } from '@prisma/client'
 
-type Props = {}
+
+/*
 type obj={id:number,string:string}
 const arr:obj[]=[
   {id:1,string:"react native styling 1"},
@@ -17,11 +18,15 @@ const arr:obj[]=[
   {id:5,string:"react native styling 5"},
   {id:6,string:"react native styling 6"}]
 
-const History = (props: Props) => {
+
+  */
+const History = () => {
   
   const navigate=useRouter()
   const[search,setSearch]=useState("")
-  const [chats,setChats]=useState<Chat[] |any[]>([])
+  const [chats,setChats]=useState<Chat[] >([])
+  const [chatid,setChatid]=useState("")
+  const [userId,setUserid]=useState("")
  
   const id:string=useSelector((state:any)=>state.users.id)
 
@@ -31,14 +36,15 @@ const History = (props: Props) => {
   console.log(res);
   setChats(res.chats)
     }catch(err){
-      console.log();
+      console.log(err);
       toast.error("failed to load all chatlists")
     }
    
   }
   const deleteHandle=async(id:any)=>{
     console.log(id.id);
-    let chatid:string=id.id
+    
+    setChatid(id.id)
    const res=await deleteChat(chatid)
    if(!res ||res.status!==200){
     toast.error("failed to delete")
@@ -55,7 +61,7 @@ const History = (props: Props) => {
     navigate.push('/login')
     return
    }
-  let userId=id
+  setUserid(id)
   fetchingChats(userId)
    
   }, [])

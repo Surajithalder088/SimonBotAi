@@ -5,8 +5,10 @@ const GOOGLE_AI_KEY:string='AIzaSyCBWQ8YyYl77ixDmClERDUN57lEAptDkJ8'
 
 const genAI = new GoogleGenerativeAI(GOOGLE_AI_KEY);
 
+let modelName="gemini-1.5-flash";
+
 const model = genAI.getGenerativeModel({
-    model: "gemini-1.5-flash",
+    model: modelName,
     generationConfig:{
 
         responseMimeType:"application/json",
@@ -39,7 +41,7 @@ const model = genAI.getGenerativeModel({
     <example>
     user:"create an image of dog playing"
     response:{
-    "here is the image of a dog playing"
+    "https://image.com/dogplaying"
     }
     <example>
 
@@ -141,6 +143,12 @@ export const generateCreativePrompt=async(userprompt:string)=>{
 
     try {
         console.log("ai start creating");
+
+        if(userprompt.includes("image")){
+            modelName="gemini-pro-vision";
+        }else{
+            modelName="gemini-1.5-flash"
+        }
         
         const result = await model.generateContent(userprompt);
         const res=result.response.text()
@@ -148,7 +156,7 @@ export const generateCreativePrompt=async(userprompt:string)=>{
         console.log(res);
         const jsonData=JSON.parse(res)
        // const jsonData=res
-    return {status:200,jsonData};
+    return {status:200,jsonData,modelName};
         
     } catch (error) {
         console.log("error",error);

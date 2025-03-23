@@ -7,9 +7,8 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 
-type Props = {}
 
-const Register = (props: Props) => {
+const Register = () => {
        const [email,setEmail]=useState("")
         const [password,setPasssword]=useState("")
         const[name,setName]=useState("")

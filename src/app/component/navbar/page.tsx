@@ -6,11 +6,10 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 
-type Props = {}
 
 
 
-const Navbar = (props: Props) => {
+const Navbar = () => {
     const navigate=useRouter()
     
     const[temp,setTemp]=useState(!useSelector((state:any)=>state.messages.temp))

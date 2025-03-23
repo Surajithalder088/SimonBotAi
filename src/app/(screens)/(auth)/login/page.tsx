@@ -10,11 +10,10 @@ import React, { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 
-type Props = {}
 
-const Login = (props: Props) => {
-    const [email,setEmail]=useState("")
-    const [password,setPasssword]=useState("")
+const Login = () => {
+    const [email,setEmail]=useState<string>('')
+    const [password,setPasssword]=useState<string>('')
     const[loading,setLoading]=useState(false)
     const dispatch=useDispatch()
     const router=useRouter()

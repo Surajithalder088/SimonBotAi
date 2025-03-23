@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import { Toaster } from 'react-hot-toast'
 import { Loader2 } from 'lucide-react'
 
-type Props = {}
+
 
 interface Message {
   author:"user"|"ai",
@@ -16,7 +16,7 @@ interface Message {
   time:string
 }
 
-const Chatlist = (props: Props) => {
+const Chatlist = () => {
   const[messageList,setMesageList]=useState([])
   const divRef=useRef<HTMLDivElement |null>(null)
   const bottomRef=useRef<HTMLDivElement |null>(null)

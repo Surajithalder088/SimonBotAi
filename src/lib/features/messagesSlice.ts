@@ -1,22 +1,21 @@
 "use client"
 
+import { JsonValue } from "@prisma/client/runtime/library"
 import  {createSlice,PayloadAction} from "@reduxjs/toolkit"
 
 
 
 interface Message {
-    author:"user"|"ai",
-    content:string|JSON
+    author:string,
+    content:string|JsonValue|null
     time:string
 }
-interface Chatid{
-    chatid:string
-}
+
 interface MessageState {
     messages:Message[]
-    chatid:string
-    isGenerating:Boolean
-    temp:Boolean
+    chatid:string|undefined
+    isGenerating:boolean
+    temp:boolean
 }
 
 const initialState:MessageState={
@@ -26,7 +25,7 @@ const initialState:MessageState={
     temp:false
 }
 
-export const messagesSlice:any=createSlice({
+export const messagesSlice=createSlice({
     name:"messages",
     initialState,
     reducers:{
@@ -39,7 +38,7 @@ export const messagesSlice:any=createSlice({
             clearMessages:(state)=>{
                 state.messages=[]
             },
-            initChat:(state,action:PayloadAction<string>)=>{
+            initChat:(state,action:PayloadAction<string|any |undefined>)=>{
                
                 state.chatid=action.payload;
             },
