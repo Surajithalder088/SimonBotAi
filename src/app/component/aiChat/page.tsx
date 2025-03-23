@@ -3,12 +3,9 @@
 
 import React, { useEffect, useState } from 'react'
 
-type Props = {
-  content:JSON
-  time:string 
-}
 
-const AiChat = ({content,time}: Props) => {
+
+const AiChat = ({content,time}: { content:JSON,time:string }) => {
   const fullText:string=Object.entries(content).map(([key,value])=>` ${key} : ${value}`).toString()
  
   const [textBody,setTextBody]=useState<string>(fullText)
