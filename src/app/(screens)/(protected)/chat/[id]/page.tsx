@@ -11,7 +11,9 @@ import { allMessages } from '@/api/messagesApi'
 
 import toast, { Toaster } from 'react-hot-toast'
 import { addNewMessage, clearMessages, initChat } from '@/lib/features/messagesSlice'
-
+/* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
 
 
 const Chat = () => {
@@ -60,6 +62,11 @@ const dispatch=useDispatch()
     
       
     }, [])
+
+    
+/* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
     
   return (
     <Provider store={store}>

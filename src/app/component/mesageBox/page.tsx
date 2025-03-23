@@ -14,6 +14,10 @@ import { newChat, newMessage } from '@/api/messagesApi'
 
 
 const MessageBox = () => {
+
+  /* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
     const[mode,setMode]=useState<"voice"|"text">('voice')
     const[isSpeaking,setIsSpeaking]=useState(false)
     const[searchMessage,setSearchMessage]=useState<string |any>("")
@@ -26,7 +30,7 @@ const MessageBox = () => {
    
     
 
-    const {transcript,listening,resetTranscript,browserSupportsSpeechRecognition}=useSpeechRecognition()
+    const {transcript,resetTranscript,browserSupportsSpeechRecognition}=useSpeechRecognition()
 
     const startVoice=async()=>{
         setIsSpeaking(true)
@@ -92,7 +96,7 @@ if(search===""){
       
     }
     
-    let chid:any=chatid
+    const chid:any=chatid
     const res=await newMessage({chatid:chid,sender:"user",body:search})
     if(res.status!==200){
         console.log("chat id",chatid);
@@ -124,7 +128,7 @@ try {
 
      
 
-       let chid:any=chatid
+       const chid:any=chatid
        const res=await newMessage({chatid:chid,sender:"ai",body:resText})
     if(res.status!==200){
         console.log(chatid);
@@ -171,6 +175,10 @@ try {
    resetTranscript()
    
   }
+
+  /* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
     
   return (
     

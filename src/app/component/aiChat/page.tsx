@@ -15,8 +15,11 @@ const AiChat = ({content,time}: Props) => {
    const [speaker,setSpeaker]=useState(false)
    const [speaking,setSpeaking]=useState(false)
    const synth=window.speechSynthesis;
+   /* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
    
-   let utterrance:SpeechSynthesisUtterance|null=null
+   //let utterrance:SpeechSynthesisUtterance|null=null
    useEffect(() => {
     if(typeof content==='string'){
       setTextBody(content)
@@ -40,6 +43,8 @@ const handleSpeechStart =(textBody:string )=>{
   utterrance.onend=()=>{setSpeaking(false)
      setSpeaker(false)}
      */
+    console.log(textBody);
+    
 }
 
 const handleStop=()=>{
@@ -51,7 +56,9 @@ setSpeaker(false)
   }
 }
 
-
+/* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
 
   return (
     <div className='m-1 p-2 w-fit h-fit rounded-t-2xl rounded-r-2xl bg-white'>

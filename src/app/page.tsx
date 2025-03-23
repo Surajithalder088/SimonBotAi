@@ -9,7 +9,9 @@ import { store } from "@/lib/store/store";
 
 import { useEffect } from "react";
 import { clearMessages, removeChat } from "@/lib/features/messagesSlice";
-
+/* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
 
 export default function Home() {
   const id:string=useSelector((state:any)=>state.users.id)
@@ -33,3 +35,7 @@ export default function Home() {
     </Provider>
   );
 }
+
+/* eslint-disable
+@typescript-eslint/no-explicit-any
+*/

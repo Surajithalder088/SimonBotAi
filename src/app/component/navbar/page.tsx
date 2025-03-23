@@ -11,6 +11,9 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const Navbar = () => {
     const navigate=useRouter()
+     /* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
     
     const[temp,setTemp]=useState(!useSelector((state:any)=>state.messages.temp))
     const dispatch=useDispatch()
@@ -28,6 +31,10 @@ const Navbar = () => {
       toast.success("messages will be saved")
       dispatch(falseTemp())
     }
+
+     /* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
   return (
     <div className='w-[100%] bg-gray-300 h-[80px] border-b-1 fixed top-0 left-0 flex items-center justify-between  '>
         <div className=' m-1 p-2 rounded-4xl hover:bg-gray-400' >

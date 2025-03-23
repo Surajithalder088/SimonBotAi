@@ -8,7 +8,9 @@ import { useSelector } from 'react-redux'
 import { Toaster } from 'react-hot-toast'
 import { Loader2 } from 'lucide-react'
 
-
+  /* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
 
 interface Message {
   author:"user"|"ai",
@@ -20,6 +22,8 @@ const Chatlist = () => {
   const[messageList,setMesageList]=useState([])
   const divRef=useRef<HTMLDivElement |null>(null)
   const bottomRef=useRef<HTMLDivElement |null>(null)
+
+
     
     const messages:Message[] |any=useSelector((state:any)=>state.messages.messages)
     const isGenerating=useSelector((state:any)=>state.messages.isGenerating)
@@ -40,6 +44,9 @@ if(isGenerating){
       scrollToBottom()
      }
 
+     /* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
 
     if(messageList.length===0){
         return(

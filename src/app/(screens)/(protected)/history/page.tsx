@@ -27,6 +27,10 @@ const History = () => {
   const [chats,setChats]=useState<Chat[] >([])
   const [chatid,setChatid]=useState("")
   const [userId,setUserid]=useState("")
+
+  /* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
  
   const id:string=useSelector((state:any)=>state.users.id)
 
@@ -70,6 +74,10 @@ const History = () => {
   }
   const filterArray=search===""?chats:chats.filter(item=>item.title?.includes(search))
   
+
+  /* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
   return (
     <div>
     <Toaster position='top-right'/>

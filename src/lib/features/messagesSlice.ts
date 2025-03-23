@@ -3,7 +3,9 @@
 import { JsonValue } from "@prisma/client/runtime/library"
 import  {createSlice,PayloadAction} from "@reduxjs/toolkit"
 
-
+/* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
 
 interface Message {
     author:string,
@@ -64,3 +66,9 @@ export const messagesSlice=createSlice({
 export const {addNewMessage,clearMessages,initChat,removeChat,generating,notGenerating,trueTemp,falseTemp}=messagesSlice.actions;
 
 export default messagesSlice.reducer;
+
+
+
+/* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
