@@ -2,6 +2,11 @@
 
 import  {createSlice,PayloadAction} from "@reduxjs/toolkit"
 
+
+/* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
+
 interface User{
     email:string|null
     id:string|null
@@ -35,3 +40,8 @@ export const userSlice:any=createSlice({
 export const {loginUser,logoutUser}=userSlice.actions;
 
 export default userSlice.reducer;
+
+
+/* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
