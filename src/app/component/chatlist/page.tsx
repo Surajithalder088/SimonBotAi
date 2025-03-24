@@ -91,8 +91,8 @@ if(isGenerating){
          
         }
       
-      { isGenerating&&<div className='bg-gray-200 w-50 h-30 rounded-b-3xl rounded-r-3xl ml-3'>
-        <Loader2 className='animate-spin text-gray-800' size={30}/>
+      { isGenerating&&<div className='bg-gray-200 w-50 h-30 rounded-b-3xl p-5 rounded-r-3xl ml-3'>
+        <Loader2 className='animate-spin text-gray-800 ' size={30}/>
         </div>}
      
        <div ref={bottomRef}/>

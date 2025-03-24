@@ -154,7 +154,7 @@ export const generateCreativePrompt=async(userprompt:string)=>{
         const res=result.response.text()
 
         console.log(res);
-        const jsonData=JSON.parse(res)
+        const jsonData=res
        // const jsonData=res
     return {status:200,jsonData,modelName};
         

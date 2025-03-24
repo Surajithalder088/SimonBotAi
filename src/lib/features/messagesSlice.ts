@@ -9,7 +9,7 @@ import  {createSlice,PayloadAction} from "@reduxjs/toolkit"
 
 interface Message {
     author:string,
-    content:string|JsonValue|null
+    content:string|JsonValue|Text|any
     time:string
 }
 

@@ -10,7 +10,8 @@ import React, { useEffect, useState } from 'react'
 
 
  // eslint-disable @typescript-eslint
-const AiChat = ({content,time}: { content:JSON,time:string }) => {
+const AiChat = ({content,time}: { content:string,time:string }) => {
+  content=JSON.parse(content)
   const fullText:string=Object.entries(content).map(([key,value])=>` ${key} : ${value}`).toString()
  
   const [textBody,setTextBody]=useState<string>(fullText)

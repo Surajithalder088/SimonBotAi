@@ -117,11 +117,12 @@ try {
    
     if(!response  || response?.status!==200){
         toast.error("ai is nuable to respond")
+        dispatch(notGenerating())
         return
     }
        dispatch(notGenerating())
        console.log(response);
-       const resText=response.jsonData
+       const resText:any=response.jsonData
        dispatch(addNewMessage({author:"ai",content:resText,time:Date.now().toString()}))
 
        if(temp===false){
@@ -129,6 +130,7 @@ try {
      
 
        const chid:any=chatid
+    
        const res=await newMessage({chatid:chid,sender:"ai",body:resText})
     if(res.status!==200){
         console.log(chatid);
