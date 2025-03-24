@@ -7,10 +7,14 @@ import React, { useEffect, useState } from 'react'
 @typescript-eslint/no-explicit-any
 */
    
+type Props={
+  content:string
+  time:string 
+}
 
 
- // eslint-disable @typescript-eslint
-const AiChat = ({content,time}: { content:string,time:string }) => {
+ 
+const AiChat = ({content,time}: Props) => {
   content=JSON.parse(content)
   const fullText:string=Object.entries(content).map(([key,value])=>` ${key} : ${value}`).toString()
  
