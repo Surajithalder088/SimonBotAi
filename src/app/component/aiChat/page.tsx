@@ -12,15 +12,17 @@ import React, { useEffect, useState } from 'react'
  //@ts-nocheck
 const AiChat = ({content,time}:{content:string,time:string}) => {
 
-  console.log(content,time);
   
-  const data=JSON.parse(content)
+  const [content1,setContent1]=useState<string>('{"response": "Hello! How can I assist you today?"}')
+  
+  
  
  
   const [textBody,setTextBody]=useState<string>(content)
    const [speaker,setSpeaker]=useState(false)
    const [speaking,setSpeaking]=useState(false)
-   const synth=window.speechSynthesis;
+  // const window:Window|null=null
+  // const synth=window.speechSynthesis;
  
    
    //let utterrance:SpeechSynthesisUtterance|null=null
@@ -28,7 +30,10 @@ const AiChat = ({content,time}:{content:string,time:string}) => {
     if(typeof content==='string'){
       setTextBody(content)
     }
-   }, [textBody])
+    setContent1(content)
+   }, [])
+
+   const data=JSON.parse(content1)
    
 console.log(speaking);
 
@@ -45,19 +50,21 @@ const handleSpeechStart =(textBody:string )=>{
  
 
   utterrance.onend=()=>{setSpeaking(false)
-     setSpeaker(false)}
-     */
+     }
+     */setSpeaker(false)
     console.log(textBody);
     
 }
 
 const handleStop=()=>{
+  /*
 setSpeaker(false)
   if(synth.speaking){
     synth.cancel()
-    setSpeaking(false)
+    
     
   }
+    */setSpeaking(false)
 }
 
 /* eslint-disable
