@@ -7,18 +7,17 @@ import React, { useEffect, useState } from 'react'
 @typescript-eslint/no-explicit-any
 */
    
-type Props={
-  content:string
-  time:string 
-}
 
 
+ //@ts-nocheck
+const AiChat = ({content,time}:{content:string,time:string}) => {
+
+  console.log(content,time);
+  
+  const data=JSON.parse(content)
  
-const AiChat = ({content,time}: Props) => {
-  content=JSON.parse(content)
-  const fullText:string=Object.entries(content).map(([key,value])=>` ${key} : ${value}`).toString()
  
-  const [textBody,setTextBody]=useState<string>(fullText)
+  const [textBody,setTextBody]=useState<string>(content)
    const [speaker,setSpeaker]=useState(false)
    const [speaking,setSpeaking]=useState(false)
    const synth=window.speechSynthesis;
@@ -85,10 +84,8 @@ setSpeaker(false)
      
 
     {
-      typeof content==="string"?(
-        <p>{content}</p>
-      ):(
-        Object.entries(content).map(([key,value])=>(
+      
+        Object.entries(data).map(([key,value])=>(
           
           <p key={key} 
           className={`p-2 mt-2 max-w-[90%] overflow-x-auto  mr-0.5 flex flex-wrap rounded ${isFile(key)?"bg-gray-900 text-blue-400 font-moto whitespace-pre-wrap":"text-black"}`} >
@@ -96,7 +93,7 @@ setSpeaker(false)
           
           
         ))
-      )
+     
     }
     
     <p>{time}</p>

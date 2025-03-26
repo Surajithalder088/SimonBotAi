@@ -14,18 +14,18 @@ import { Loader2 } from 'lucide-react'
 
 interface Message {
   author:"user"|"ai",
-  content:any
+  content:string,
   time:string
 }
 
 const Chatlist = () => {
-  const[messageList,setMesageList]=useState([])
+  const[messageList,setMesageList]=useState<Message[]>([])
   const divRef=useRef<HTMLDivElement |null>(null)
   const bottomRef=useRef<HTMLDivElement |null>(null)
 
 
     
-    const messages:Message[] |any=useSelector((state:any)=>state.messages.messages)
+    const messages:Message[] =useSelector((state:any)=>state.messages.messages)
     const isGenerating=useSelector((state:any)=>state.messages.isGenerating)
 
     const scrollToBottom=()=>{
