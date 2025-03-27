@@ -3,6 +3,18 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 const GOOGLE_AI_KEY:string='AIzaSyCBWQ8YyYl77ixDmClERDUN57lEAptDkJ8'
 
+import axios from "axios";
+import FormData from "form-data";
+import fs from "fs"
+import uploadOnCloudinary from "./coudinary";
+import { log } from "util";
+
+const STABILITY_API_KEY="sk-Yo66EhTSOTYVK4v5I6ty0ZGuA6AV8uAEcTAWV3S3pz7XUkiU"
+const STABILITY_API_URL="https://api.stability.ai/v2beta/stable-image/generate/core"
+
+// const IMGUR_CLIENT_ID="c6cdd2b4b13b464"
+// const IMGUR_CLIENT_SECRET="6630c62d7332cd05bfd4a74a6a0f3200ed4e1af4"
+
 const genAI = new GoogleGenerativeAI(GOOGLE_AI_KEY);
 
 let modelName="gemini-2.0-flash";
@@ -135,7 +147,7 @@ const model = genAI.getGenerativeModel({
     response:{
     "i am sorry to provide that data, you may ask me something else"
     }
-
+   never send your response as {"this is the answer"},it is wrong,instead send {"response":"this is the answer"}
     just like these examples always give proper data is response ,what ever the question, atleast give any response.
     other than these examples, give proper data with suitable explanation whenever you are asked aboute anything,
     remember you are an assistance to guide your boss with proper and  good formal explanation,
@@ -145,16 +157,69 @@ const model = genAI.getGenerativeModel({
     `
 })
 
+const generateImage=async(userprompt:string)=>{
+try {
+
+    const formData=new FormData();
+    formData.append("prompt",userprompt);
+    formData.append("model","stable-diffusion-xl-1024-v1-0")
+    const response=await axios.post(STABILITY_API_URL,formData,
+    {
+        headers:{
+            ...formData.getHeaders(),
+            "Authorization":`Bearer ${STABILITY_API_KEY}`,
+            }
+        
+    }
+)
+if(response.status!==200){
+    console.log("image not generated",response);
+    
+    return {status:500,response};
+}
+console.log("image generated sucessfulyy,converting to url");
+
+//const base64img=Buffer.from(response.data.image,"binary").toString("base64")
+
+
+const imageData=response.data.image
+
+const filePath="picture.png"
+fs.writeFileSync(filePath,imageData)
+
+console.log(`file downloaded  ${filePath}`);
+
+const cloud=await uploadOnCloudinary(filePath);
+console.log("cloud",cloud);
+
+
+return {status:200,url:cloud.url};
+
+
+
+} catch (error) {
+    console.log("Error generated",error);
+    console.log("Error generated data",error.response.data);
+    console.log("Error generated message",error.response.message);
+    return {status:500,error};
+}
+}
+
 export const generateCreativePrompt=async(userprompt:string)=>{
 
 
     try {
         console.log("ai start creating");
 
-        if(userprompt.includes("image")){
-            modelName="gemini-pro-vision";
+        if(userprompt.includes("image")||userprompt.includes("picture")||userprompt.includes("pic")||userprompt.includes("photo")){
+            const filePath=await generateImage(userprompt);
+
+            if(filePath.status===500){
+                return {status:200,jsonData:"{\n\"response\": \"Failed to generate image\"\n}"};
+            }
+            return {status:200,jsonData:"{\n\"response\": \"Hey, image is send\"\n}",filePath};
         }else{
-            modelName="gemini-2.0-flash"
+            modelName="gemini-pro-vision"
         }
         
         const result = await model.generateContent(userprompt);
