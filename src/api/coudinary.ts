@@ -1,4 +1,4 @@
-const  cloudinary =require('cloudinary').v2;
+import {v2 as cloudinary} from 'cloudinary';
 import fs from 'fs';
 
 
@@ -8,13 +8,13 @@ import fs from 'fs';
     // Configuration
     cloudinary.config({ 
         cloud_name:'dbxx49ers', 
-        api_key:599771455727696, 
+        api_key:'599771455727696', 
         api_secret:'AIKlW4J69tyWmpTlTK0nfjzW1bI', 
     });
     
   
 
-    const uploadOnCloudinary=async(localFilePath)=>{
+    const uploadOnCloudinary=async(localFilePath:any)=>{
         try{
             if(!localFilePath){
                 return null; }

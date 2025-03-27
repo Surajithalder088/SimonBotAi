@@ -7,7 +7,7 @@ import axios from "axios";
 import FormData from "form-data";
 import fs from "fs"
 import uploadOnCloudinary from "./coudinary";
-import { log } from "util";
+
 
 const STABILITY_API_KEY="sk-Yo66EhTSOTYVK4v5I6ty0ZGuA6AV8uAEcTAWV3S3pz7XUkiU"
 const STABILITY_API_URL="https://api.stability.ai/v2beta/stable-image/generate/core"
