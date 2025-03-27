@@ -36,6 +36,8 @@ const AiChat = ({content,time}:{content:string,time:string}) => {
    const data=JSON.parse(content1)
    
 console.log(speaking);
+const number=Number(time)
+  const date=new Date(number)
 
 
 const isFile=(key:string)=>/\w+\.(js|ts|py|html|css|json|md|jsx|tsx|txt)$/i.test(key)
@@ -103,7 +105,17 @@ setSpeaker(false)
      
     }
     
-    <p>{time}</p>
+    <p className='font-semibold'>{date?.toLocaleTimeString(
+          "en-US",{
+            hour:"2-digit",
+            minute:"2-digit",
+            hour12:true,
+            weekday:"short",
+            day:"2-digit",
+            month:"short",
+            year:"numeric",
+          }
+        )}</p>
   </div>
   )
 }
