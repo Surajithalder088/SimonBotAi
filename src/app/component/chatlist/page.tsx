@@ -61,7 +61,7 @@ if(isGenerating){
         return(
             <div className=' min-h-[100vh-160px] flex-1 flex-wrap items-center overflow-auto mt-[80px] mb-[80px]'>
                <div className='font-bold  font-sans p-5 text-3xl flex gap-4 items-center justify-center text-gray-600'>
-                Hii,I'm Simon <img className='w-8 h-8' src='/icon.png'/></div>
+                Hii,I am Simon <img className='w-8 h-8' src='/icon.png'/></div>
                <div className='font-bold font-sans p-5 text-2xl flex flex-col items-center justify-center text-gray-600'> How can I help you today?
                 <span className='m-2'>
                   <ol className='font-normal text-2xl text-gray-400'>
