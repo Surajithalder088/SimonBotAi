@@ -53,6 +53,8 @@ export const login=async({email,password}:{email:string,password:string})=>{
         }
         return{status:200,user:user}
     } catch (error) {
+        console.log(error);
+        
         return{status:500,message:"internal server error ",error}
     }
 }
