@@ -68,10 +68,10 @@ if(isGenerating){
                <div className='font-bold font-sans p-5 text-2xl flex flex-col gap-4 items-center justify-center text-gray-600'>
                 <div className='flex gap-2 items-center'><img className='w-7 h-7' src='/star-fill.png'/> How can I asist you today?</div>
                 <span className='m-2'>
-                  <ol className='font-normal sm:text-[15px] text-2xl text-gray-400'>
+                  <ol className='font-normal sm:text-[15px] text-xl sm:text-sm text-gray-400'>
                     <li className='flex items-center gap-2 '>*I can draw image <img className='w-7 h-7' src='/photo.png'/></li>
-                    <li className='flex items-center gap-2'>*You can send me voice message<img className='w-7 h-7' src='/speaking.png'/></li>
-                    <li className='flex items-center gap-2'>*I store our previous conversations<img className='w-7 h-7' src='/file.png'/></li>
+                    <li className='flex items-center gap-1'>*You can send me voice message <img className='w-7 h-7' src='/speaking.png'/></li>
+                    <li className='flex items-center gap-1'>*I store our previous conversations <img className='w-7 h-7' src='/file.png'/></li>
                   </ol>
                 </span>
                </div>
