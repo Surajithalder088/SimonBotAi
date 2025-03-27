@@ -42,7 +42,7 @@ const Navbar = () => {
         </div>
 
         <div 
-        className=' m-2 p-2 rounded-4xl flex items-center justify-center font-bold text-4xl w-14 h-14 hover:bg-gray-400'>
+        className=' m-2 p-2 rounded-4xl flex items-center justify-center font-bold text-4xl w-14 h-14 hover:text-5xl'>
           <h1 className='bg-gradient-to-r from-blue-500 to-pink-700 text-transparent bg-clip-text'>Simon</h1>
           </div>
         <div className='flex items-center justify-between w-[20%]'>

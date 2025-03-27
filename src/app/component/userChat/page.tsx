@@ -9,7 +9,7 @@ const UserChat = ({content,time}: {content:string ,time:string}) => {
   const date=new Date(number)
   return (
     <div className='m-1 mr-[] p-2 w-[60vw] flex flex-col justify-end ml-auto h-fit rounded-t-2xl rounded-l-2xl bg-gray-400'>
-        <h4 className='font-bold'>user</h4>
+        <h4 className='font-bold'>You</h4>
         <p>{content}</p>
         <h4 className='font-semibold'>{date?.toLocaleTimeString(
           "en-US",{

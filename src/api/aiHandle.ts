@@ -5,7 +5,7 @@ const GOOGLE_AI_KEY:string='AIzaSyCBWQ8YyYl77ixDmClERDUN57lEAptDkJ8'
 
 const genAI = new GoogleGenerativeAI(GOOGLE_AI_KEY);
 
-let modelName="gemini-1.5-flash";
+let modelName="gemini-2.0-flash";
 
 const model = genAI.getGenerativeModel({
     model: modelName,
@@ -154,7 +154,7 @@ export const generateCreativePrompt=async(userprompt:string)=>{
         if(userprompt.includes("image")){
             modelName="gemini-pro-vision";
         }else{
-            modelName="gemini-1.5-flash"
+            modelName="gemini-2.0-flash"
         }
         
         const result = await model.generateContent(userprompt);

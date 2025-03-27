@@ -9,6 +9,8 @@ import toast, { Toaster } from 'react-hot-toast'
 import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { clearMessages } from '@/lib/features/messagesSlice'
+import Speech from "../speech/page"
+
 
   /* eslint-disable
 @typescript-eslint/no-explicit-any
@@ -61,16 +63,19 @@ if(isGenerating){
         return(
             <div className=' min-h-[100vh-160px] flex-1 flex-wrap items-center overflow-auto mt-[80px] mb-[80px]'>
                <div className='font-bold  font-sans p-5 text-3xl flex gap-4 items-center justify-center text-gray-600'>
-                Hii,I am Simon <img className='w-8 h-8' src='/icon.png'/></div>
-               <div className='font-bold font-sans p-5 text-2xl flex flex-col items-center justify-center text-gray-600'> How can I help you today?
+                Hii,I am Simon <img className='w-8 h-8' src='/icon.png'/>
+                </div>
+               <div className='font-bold font-sans p-5 text-2xl flex flex-col gap-4 items-center justify-center text-gray-600'>
+                <div className='flex gap-2 items-center'><img className='w-7 h-7' src='/star-fill.png'/> How can I asist you today?</div>
                 <span className='m-2'>
-                  <ol className='font-normal text-2xl text-gray-400'>
-                    <li>I can draw image</li>
-                    <li> I can receive voice message</li>
-                    <li>I store our previous conversations</li>
+                  <ol className='font-normal sm:text-[15px] text-2xl text-gray-400'>
+                    <li className='flex items-center gap-2 '>*I can draw image <img className='w-7 h-7' src='/photo.png'/></li>
+                    <li className='flex items-center gap-2'>*You can send me voice message<img className='w-7 h-7' src='/speaking.png'/></li>
+                    <li className='flex items-center gap-2'>*I store our previous conversations<img className='w-7 h-7' src='/file.png'/></li>
                   </ol>
                 </span>
                </div>
+               <div className='z-50 ml-2 mt-[10%] text-center text-bold'><Speech/></div>
             </div>
         )
     }
