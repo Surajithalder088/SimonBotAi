@@ -1,8 +1,13 @@
+'use server'
+
 import {v2 as cloudinary} from 'cloudinary';
+import { log } from 'console';
 import fs from 'fs';
 
 
-
+/* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
 
 
     // Configuration
@@ -28,9 +33,15 @@ import fs from 'fs';
                  return response;
            
         }catch(err){
+            console.log(err);
+            
             fs.unlinkSync(localFilePath);//revome the local file as failed to upload
             return null;
         }
     }
 
     export default uploadOnCloudinary;
+
+    /* eslint-disable
+@typescript-eslint/no-explicit-any
+*/
