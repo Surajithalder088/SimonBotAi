@@ -3,10 +3,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import UserChat from '../userChat/page'
 import AiChat from '../aiChat/page'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { Toaster } from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 import { Loader2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { clearMessages } from '@/lib/features/messagesSlice'
 
   /* eslint-disable
 @typescript-eslint/no-explicit-any
@@ -22,7 +24,8 @@ const Chatlist = () => {
   const[messageList,setMesageList]=useState<Message[]>([])
   const divRef=useRef<HTMLDivElement |null>(null)
   const bottomRef=useRef<HTMLDivElement |null>(null)
-
+ const navigate=useRouter()
+ const dispatch=useDispatch()
 
     
     const messages:Message[] =useSelector((state:any)=>state.messages.messages)
@@ -32,6 +35,12 @@ const Chatlist = () => {
       if(bottomRef.current){
       bottomRef.current.scrollIntoView({behavior:'smooth'})
       }
+    }
+
+    const newChat=()=>{
+      toast.success("Start new conversation")
+      dispatch(clearMessages())
+      navigate.push('/')
     }
     useEffect(()=>{
       setMesageList(messages)
@@ -51,8 +60,9 @@ if(isGenerating){
     if(messageList.length===0){
         return(
             <div className=' min-h-[100vh-160px] flex-1 flex-wrap items-center overflow-auto mt-[80px] mb-[80px]'>
-               
-               <div className='font-bold font-sans p-5 text-4xl flex flex-col items-center justify-center text-gray-600'> How can I help you today?
+               <div className='font-bold  font-sans p-5 text-3xl flex gap-4 items-center justify-center text-gray-600'>
+                Hii,I'm Simon <img className='w-8 h-8' src='/icon.png'/></div>
+               <div className='font-bold font-sans p-5 text-2xl flex flex-col items-center justify-center text-gray-600'> How can I help you today?
                 <span className='m-2'>
                   <ol className='font-normal text-2xl text-gray-400'>
                     <li>I can draw image</li>
@@ -74,6 +84,11 @@ if(isGenerating){
       onClick={scrollToBottom}
       >
         <img className='w-8 h-8' src='/arrow-down-line.png'/>
+      </button>
+      <button className=' fixed bg-gray-50 w-30 border-2 flex items-center justify-center  h-12 rounded-full z-50 bottom-20 ml-[1%]'
+      onClick={newChat}
+      >
+       new chat <img className='w-8 h-8' src='/new-chat.png'/>
       </button>
       <div className='max-w-[96%] overflow-scroll'
      ref={divRef}

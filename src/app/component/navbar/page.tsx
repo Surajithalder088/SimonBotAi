@@ -43,7 +43,8 @@ const Navbar = () => {
 
         <div 
         className=' m-2 p-2 rounded-4xl flex items-center justify-center font-bold text-4xl w-14 h-14 hover:bg-gray-400'>
-          Simon</div>
+          <h1 className='bg-gradient-to-r from-blue-500 to-pink-700 text-transparent bg-clip-text'>Simon</h1>
+          </div>
         <div className='flex items-center justify-between w-[20%]'>
         <div className=' m-1  rounded-4xl hover:bg-gray-400' onClick={tempAccess}>
           

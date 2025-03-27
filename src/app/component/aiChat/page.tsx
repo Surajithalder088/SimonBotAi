@@ -73,7 +73,7 @@ setSpeaker(false)
 
   return (
     <div className='m-1 p-2 w-fit h-fit rounded-t-2xl rounded-r-2xl bg-white'>
-    <h4 className='font-bold'>AI</h4>
+    <h4 className='font-bold flex gap-2'>AI <img className='w-6 h-6' src='/icon.png'/></h4>
 
    
      {
