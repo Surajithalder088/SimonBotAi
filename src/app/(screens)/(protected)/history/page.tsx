@@ -91,7 +91,7 @@ const History = () => {
       <div className='p-3 flex flex-col items-center gap-3 mt-[80px] h-screen '>
         <p className='font-semibold'>Past search tags and conversations:</p>
     {
-     chats.length>0&& filterArray.map(i=>< div key={i.id} className='bg-gray-400 w-full flex justify-around p-2'
+     chats?.length>0&& filterArray.map(i=>< div key={i?.id} className='bg-gray-400 w-full flex justify-around p-2'
      
       >
         <p className='bg-gray-300 px-7 rounded-md flex flex-wrap w-[70%] overflow-auto max-h-12'
