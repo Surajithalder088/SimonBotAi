@@ -21,11 +21,9 @@ const AiChat = ({content,time}:{content:string,time:string}) => {
   const [textBody,setTextBody]=useState<string>(content)
    const [speaker,setSpeaker]=useState(false)
    const [speaking,setSpeaking]=useState(false)
-  // const window:Window|null=null
-  // const synth=window.speechSynthesis;
- 
-   
-   //let utterrance:SpeechSynthesisUtterance|null=null
+   //const window:Window|any=""
+
+
    useEffect(() => {
     if(typeof content==='string'){
       setTextBody(content)
@@ -42,31 +40,51 @@ const number=Number(time)
 
 const isFile=(key:string)=>/\w+\.(js|ts|py|html|css|json|md|jsx|tsx|txt)$/i.test(key)
 
+useEffect(() => {
+  if(typeof window==="undefined"){
+    return
+  }
+ 
+}, [speaker])
+
+const window: Window & typeof globalThis= globalThis as any
+
+const synth:SpeechSynthesis=window.speechSynthesis;
+
+let utterrance:SpeechSynthesisUtterance|any=null
+
 const handleSpeechStart =(textBody:string )=>{
-  /*if(synth.speaking) return;
+  if(synth.speaking) {
+    synth.cancel()
+    };
+    if(typeof window==="undefined"){
+      return
+    }
 
   setSpeaker(true)
+  setSpeaking(true)
   utterrance=new SpeechSynthesisUtterance(textBody);
   synth.speak(utterrance)
-  setSpeaking(true)
+  
  
 
   utterrance.onend=()=>{setSpeaking(false)
+    setSpeaker(false)
      }
-     */setSpeaker(false)
+     
     console.log(textBody);
     
 }
 
 const handleStop=()=>{
-  /*
+  
 setSpeaker(false)
   if(synth.speaking){
     synth.cancel()
     
     
   }
-    */setSpeaking(false)
+    setSpeaking(false)
 }
 
 /* eslint-disable
@@ -82,12 +100,12 @@ setSpeaker(false)
       speaker===true?
       <button className='flex items-center p-1 bg-gray-300 rounded-3xl w-fit'
       onClick={handleStop}
-     ><img  className='w-5 h-5' src='/mute.png'/>
+     ><img  className='w-5 h-5' src='/speaker-filled-audio-tool.png' />
      </button>
      :<button className='flex items-center p-1 bg-gray-300 rounded-3xl w-fit'
      onClick={()=>handleSpeechStart(textBody)}
      >
-      <img className='w-5 h-5' src='/speaker-filled-audio-tool.png' /> </button>
+      <img className='w-5 h-5' src='/mute.png' /> </button>
      } 
       
      
