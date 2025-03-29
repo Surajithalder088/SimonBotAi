@@ -147,7 +147,8 @@ const model = genAI.getGenerativeModel({
     response:{
     "i am sorry to provide that data, you may ask me something else"
     }
-   never send your response as {"this is the answer"},it is wrong,instead send {"response":"this is the answer"}
+   **important** never send your response as {"this is the answer"},it is wrong,instead send {"response":"this is the answer"} **important**
+   
     just like these examples always give proper data is response ,what ever the question, atleast give any response.
     other than these examples, give proper data with suitable explanation whenever you are asked aboute anything,
     remember you are an assistance to guide your boss with proper and  good formal explanation,

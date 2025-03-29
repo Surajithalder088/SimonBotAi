@@ -5,6 +5,7 @@ import { Canvas } from '@react-three/fiber'
 import Shape from './shape'
 import { generateCreativePrompt } from '@/api/aiHandle'
 import { useDispatch,useSelector } from 'react-redux'
+import { motion} from 'motion/react'
 import { addNewMessage, clearMessages, generating, initChat, notGenerating, trueTemp } from '@/lib/features/messagesSlice'
 
 import SpeechRecognition,{useSpeechRecognition} from "react-speech-recognition"
@@ -187,7 +188,10 @@ try {
   return (
     
    
-    <div className='bg-cyan-50 bottom-0 left-0 fixed w-full h-[80px] border-t rounded-t-lg'>
+    <motion.div 
+    initial={{y:100,opacity:0}}
+    animate={{y:0,opacity:1,transition:{duration:1.5}}}
+    className='bg-cyan-50 bottom-0 left-0 fixed w-full h-[80px] border-t rounded-t-lg'>
         <Toaster position='top-left'/>
 
        {
@@ -203,7 +207,10 @@ try {
                 <Canvas>
           <Shape/>
         </Canvas>
-                </div>:<div className='w-10 h-10  rounded-full'><img src='/speaker.png'/></div>}
+                </div>:<motion.div
+                animate={{rotate:[0,360]}} transition={{duration:8 ,repeat:Infinity,}}
+                 className='w-14 h-14 bg-gradient-to-r from-cyan-600 to-red-500 rounded-full'>
+                  <img src='/speaker.png'/></motion.div>}
 
                 {
                     isSpeaking===false?<button className='p-3 mt-2' onClick={()=> startVoice()}><img className='w-8 h-8' src='/voice-recorder.png'/></button>
@@ -233,7 +240,7 @@ try {
        }
 
         
-    </div>
+    </motion.div>
     
   )
 }

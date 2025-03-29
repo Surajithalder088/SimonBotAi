@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import UserChat from '../userChat/page'
 import AiChat from '../aiChat/page'
 import { useDispatch, useSelector } from 'react-redux'
+import { motion } from 'motion/react'
 
 import toast, { Toaster } from 'react-hot-toast'
 import { Loader2 } from 'lucide-react'
@@ -62,10 +63,16 @@ if(isGenerating){
     if(messageList.length===0){
         return(
             <div className=' min-h-[100vh-160px] flex-1 flex-wrap items-center overflow-auto mt-[80px] mb-[80px]'>
-               <div className='font-bold  font-sans p-5 text-3xl flex gap-4 items-center justify-center text-gray-600'>
+               <motion.div 
+               initial={{y:-100,opacity:0}}
+                animate={{y:0,opacity:1,transition:{duration:1.5}}}
+               className='font-bold  font-sans p-5 text-3xl flex gap-4 items-center justify-center text-gray-700'>
                 Hii,I am Simon <img className='w-8 h-8' src='/icon.png'/>
-                </div>
-               <div className='font-bold font-sans p-5 text-2xl flex flex-col gap-4 items-center justify-center text-gray-600'>
+                </motion.div>
+               <motion.div 
+                initial={{x:-100,opacity:0}}
+                animate={{x:0,opacity:1,transition:{duration:2,straggerChildren:1.2}}}
+               className='font-bold font-sans p-5 text-2xl flex flex-col gap-4 items-center justify-center text-gray-500'>
                 <div className='flex gap-2 items-center'><img className='w-7 h-7' src='/star-fill.png'/> How can I asist you today?</div>
                 <span className='m-2'>
                   <ol className='font-normal sm:text-[15px] text-xl sm:text-sm text-gray-400'>
@@ -74,7 +81,7 @@ if(isGenerating){
                     <li className='flex items-center gap-1'>*I store our previous conversations <img className='w-7 h-7' src='/file.png'/></li>
                   </ol>
                 </span>
-               </div>
+               </motion.div>
                <div className='z-50 ml-2 mt-[10%] text-center text-bold'><Speech/></div>
             </div>
         )

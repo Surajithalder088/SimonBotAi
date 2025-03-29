@@ -33,7 +33,7 @@ const dispatch=useDispatch()
         }
        const list = res.messages
         console.log("messages are:",list);
-        list?.forEach(item=>{
+        list?.map(item=>{
           
           console.log(item,item.id);
           dispatch(addNewMessage({author:item.sender,content:item.body,time:Date.now().toString()}))

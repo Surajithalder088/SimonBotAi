@@ -66,7 +66,7 @@ const History = () => {
     return
    }
   setUserid(id)
-  fetchingChats(userId)
+  fetchingChats(id)
    
   }, [])
   const searchhandle=(e:React.ChangeEvent<HTMLInputElement>)=>{
