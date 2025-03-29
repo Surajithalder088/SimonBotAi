@@ -66,6 +66,8 @@ const History = () => {
     return
    }
   setUserid(id)
+  console.log(userId);
+  
   fetchingChats(id)
    
   }, [])
